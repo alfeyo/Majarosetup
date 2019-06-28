@@ -1,1 +1,55 @@
 #!/bin/bash
+#https://wiki.manjaro.org/index.php?title=Swap
+
+#I Do Need Swap
+
+#Comands 
+swapon
+
+
+#Using a Swap Partition
+
+
+# Creating and Enabling a Swap Partition
+
+
+sudo mkswap /dev/sda3
+
+
+#Next we need to enable the swap partition with the swapon command. Following our example above this could be done with:
+
+sudo swapon /dev/sda3
+
+
+#In order to ensure that the swap is enabled at boot we can add an entry to /etc/fstab. It is best to use the UUID instead of the device name for this purpose. You can add the line to fstab manually or using the command:
+
+sudo bash -c "echo UUID=$(lsblk -no UUID /dev/sda3) none swap defaults 0 0 >> /etc/fstab"
+
+
+#If you would like to have more than one swap partition, simply repeat the steps above for any additional partitions.
+
+
+#note: Be sure to replace /dev/sda3 in the above commands with your actual swap partition.
+
+
+#Using a Swapfile
+
+#Creating and Enabling a Static Swapfile
+
+sudo fallocate -l 4G /swapfile
+sudo mkswap /swapfile
+
+
+#Set the appropriate permissions on the file. It should be readable and writable only by root. This can be done with the command:
+
+sudo chmod u=rw,go= /swapfile
+
+
+#Next we need to enable the swapfile with the swapon command. Following our example above this could be done with:
+
+sudo swapon /swapfile
+
+
+#In order to ensure that the swap is enabled at boot we can add an entry to /etc/fstab. You can add the line to ftab manually or using the command:
+
+sudo bash -c "echo /swapfile none swap defaults 0 0 >> /etc/fstab"
