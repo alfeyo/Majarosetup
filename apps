@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo pacman vagrant 
+
+sudo pacman -S virtualbox
