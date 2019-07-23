@@ -1,1 +1,8 @@
 #!/bin/bash
+make
+
+makepkg -g
+
+sudo pacman -U --noconfirm 
+
+makepkg install
